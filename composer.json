@@ -3,6 +3,7 @@
     "description": "A client to connect PHP Programs to integration API.",
     "type": "library",
     "version": "1.0.0",
+    "license": "MIT",
     "require": {
         "php": "^8.1",
         "guzzlehttp/guzzle": "^7.4"
