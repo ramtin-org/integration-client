@@ -1,0 +1,33 @@
+{
+    "name": "yaraplus/integration-client",
+    "description": "A client to connect PHP Programs to integration API.",
+    "type": "library",
+    "version": "1.0.0",
+    "require": {
+        "php": "^8.1",
+        "guzzlehttp/guzzle": "^7.4"
+    },
+    "autoload": {
+        "psr-4": {
+            "Yaraplus\\IntegrationClient\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Mohammad Zarifiyan",
+            "email": "mohammadzarifiyan82@gmail.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Yaraplus\\IntegrationClient\\Providers\\ClientServiceProvider",
+                "Yaraplus\\IntegrationClient\\Instagram\\Providers\\InstagramServiceProvider",
+                "Yaraplus\\IntegrationClient\\Instagram\\Providers\\AccountServiceProvider",
+                "Yaraplus\\IntegrationClient\\Instagram\\Providers\\HighlighServiceProvider",
+                "Yaraplus\\IntegrationClient\\Instagram\\Providers\\PostServiceProvider",
+                "Yaraplus\\IntegrationClient\\Instagram\\Providers\\StoryServiceProvider"
+            ]
+        }
+    }
+}
