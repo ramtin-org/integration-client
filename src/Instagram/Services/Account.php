@@ -6,18 +6,21 @@ use Throwable;
 use Yaraplus\IntegrationClient\Exceptions\IntegrationClientException;
 use Yaraplus\IntegrationClient\Instagram\Abstractions\InstagramService;
 use Yaraplus\IntegrationClient\Instagram\Interfaces\AccountInterface;
+use Yaraplus\IntegrationClient\Interfaces\ModelInterface;
 
 class Account extends InstagramService implements AccountInterface
 {
 	/**
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function findByUsername(string $username): object
+    public function findByUsername(string $username): ModelInterface
     {
-        return $this->getClient()->sendRequest(
+        $result = $this->getClient()->sendRequest(
 			'/instagram/account/profile',
 			compact('username')
 		);
+		
+		return new \Yaraplus\IntegrationClient\Instagram\Models\Account($result->data);
     }
 
     /**

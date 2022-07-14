@@ -2,9 +2,11 @@
 
 namespace Yaraplus\IntegrationClient\Instagram\Interfaces;
 
+use Yaraplus\IntegrationClient\Interfaces\ModelInterface;
+
 interface AccountInterface
 {
-    public function findByUsername(string $username): object;
+    public function findByUsername(string $username): ModelInterface;
 
     public function extractUsernameFromMention(string $mention): string;
 
