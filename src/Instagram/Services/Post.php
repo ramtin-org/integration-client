@@ -6,18 +6,27 @@ use Throwable;
 use Yaraplus\IntegrationClient\Exceptions\IntegrationClientException;
 use Yaraplus\IntegrationClient\Instagram\Abstractions\InstagramService;
 use Yaraplus\IntegrationClient\Instagram\Interfaces\PostInterface;
+use Yaraplus\IntegrationClient\Instagram\Models\CarouselPost;
+use Yaraplus\IntegrationClient\Instagram\Models\SinglePost;
+use Yaraplus\IntegrationClient\Interfaces\ModelInterface;
 
 class Post extends InstagramService implements PostInterface
 {
     /**
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function findByCode(string $code): object
+    public function findByCode(string $code): ModelInterface
     {
-        return $this->getClient()->sendRequest(
+        $result = $this->getClient()->sendRequest(
 			'/instagram/post',
 			compact('code')
 		);
+		
+		if (array_key_exists('items', $result->data)) {
+			return new CarouselPost($result->data);
+		}
+		
+		return new SinglePost($result->data);
     }
 
     /**
