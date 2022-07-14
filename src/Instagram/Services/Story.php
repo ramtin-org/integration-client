@@ -2,23 +2,25 @@
 
 namespace Yaraplus\IntegrationClient\Instagram\Services;
 
-use JetBrains\PhpStorm\ArrayShape;
 use Throwable;
 use Yaraplus\IntegrationClient\Exceptions\IntegrationClientException;
 use Yaraplus\IntegrationClient\Instagram\Abstractions\InstagramService;
 use Yaraplus\IntegrationClient\Instagram\Interfaces\StoryInterface;
+use Yaraplus\IntegrationClient\Interfaces\ModelInterface;
 
 class Story extends InstagramService implements StoryInterface
 {
     /**
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function find(int $id, string $username): object
+    public function find(int $id, string $username): ModelInterface
     {
-        return $this->getClient()->sendRequest(
+        $result = $this->getClient()->sendRequest(
 			'/instagram/story',
 			compact('id', 'username')
 		);
+		
+		return new \Yaraplus\IntegrationClient\Instagram\Models\Story($result->data);
     }
 
     /**
@@ -40,7 +42,6 @@ class Story extends InstagramService implements StoryInterface
     /**
      * @throws IntegrationClientException
      */
-    #[ArrayShape(['id' => 'int', 'username' => 'string'])]
     public function extractInfoFromStoryUrl(string $url): array
     {
         preg_match('/^(?:https?:\/\/)?(?:www\.)?instagram\.com\/stories\/((?!.*\.\.)(?!.*\.$)[^\W][\w.]{0,29})\/(\d{19})(?:\/(?:.*)?|\?(?:.*)?)?$/', $url, $matches);

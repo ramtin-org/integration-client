@@ -2,9 +2,11 @@
 
 namespace Yaraplus\IntegrationClient\Instagram\Interfaces;
 
+use Yaraplus\IntegrationClient\Interfaces\ModelInterface;
+
 interface StoryInterface
 {
-    public function find(int $id, string $username): object;
+    public function find(int $id, string $username): ModelInterface;
 
     public function extractIdFromUrl(string $url): int;
 
