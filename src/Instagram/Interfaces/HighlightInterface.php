@@ -4,7 +4,7 @@ namespace Yaraplus\IntegrationClient\Instagram\Interfaces;
 
 interface HighlightInterface
 {
-	public function getStories(int $id): object;
+	public function getStories(int $id): array;
 	
 	public function extractIdFromUrl(string $url): int;
 	

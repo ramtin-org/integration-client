@@ -6,14 +6,20 @@ use Throwable;
 use Yaraplus\IntegrationClient\Exceptions\IntegrationClientException;
 use Yaraplus\IntegrationClient\Instagram\Abstractions\InstagramService;
 use Yaraplus\IntegrationClient\Instagram\Interfaces\HighlightInterface;
+use Yaraplus\IntegrationClient\Instagram\Models\HighlightStory;
 
 class Highlight extends InstagramService implements HighlightInterface
 {
-	public function getStories(int $id): object
+	public function getStories(int $id): array
 	{
-		return $this->getClient()->sendRequest(
+		$result = $this->getClient()->sendRequest(
 			'/instagram/highlight/stories',
 			compact('id')
+		);
+		
+		return array_map(
+			fn ($story) => new HighlightStory($story),
+			$result->data
 		);
 	}
 	
